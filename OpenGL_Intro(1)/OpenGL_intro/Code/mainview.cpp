@@ -6,12 +6,21 @@
 
 MainView::MainView(QWidget *parent) : QOpenGLWidget(parent) {
     qDebug() << "MainView constructor";
+
     initializeGL();
+
+
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
+
+
+    qDebug() << "a";
     shader.addShaderFromSourceFile(QOpenGLShader::Vertex ,":/shaders/vertshader.glsl");
     shader.addShaderFromSourceFile(QOpenGLShader::Fragment ,":/shaders/fragshader.glsl");
+    qDebug() << "b";
     shader.link();
     shader.bind();
+
+
 
     GLuint VBO = 0;
     GLuint VAO = 0;
@@ -50,7 +59,6 @@ MainView::MainView(QWidget *parent) : QOpenGLWidget(parent) {
     glGenVertexArrays(1, &VAO);
 
 
-     qDebug() << "Reached 52";
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindVertexArray(VAO);
 
@@ -73,8 +81,9 @@ MainView::~MainView() {
 
 void MainView::initializeGL() {
     qDebug() << ":: Initializing OpenGL";
-    initializeOpenGLFunctions();
 
+    initializeOpenGLFunctions();
+    qDebug() << ":: Finished initalising functions";
     debugLogger = new QOpenGLDebugLogger();
     connect( debugLogger, SIGNAL( messageLogged( QOpenGLDebugMessage ) ), this, SLOT( onMessageLogged( QOpenGLDebugMessage ) ), Qt::DirectConnection );
 
