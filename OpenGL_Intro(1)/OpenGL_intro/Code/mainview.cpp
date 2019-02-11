@@ -26,8 +26,6 @@ MainView::MainView(QWidget *parent) : QOpenGLWidget(parent) {
     GLuint VAO = 0;
 
 
-
-    qDebug() << "MainView constructor2";
     vertex vertexArray[3];
     // V1
     vertexArray[0].x =   1;
@@ -64,12 +62,14 @@ MainView::MainView(QWidget *parent) : QOpenGLWidget(parent) {
 
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex)*3, &vertexArray, GL_STATIC_DRAW);
-    //glBufferData(vertexArray[0]);
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
     glVertexAttribPointer(0, 2,  GL_FLOAT, GL_FALSE, sizeof(vertex),(GLvoid*)0);
     glVertexAttribPointer(1, 3,  GL_FLOAT, GL_FALSE, sizeof(vertex),(GLvoid*)(2*sizeof(float)) );
+
+    MainView();
+    qDebug() << "Program finished.";
 
 }
 
@@ -81,7 +81,6 @@ MainView::~MainView() {
 
 void MainView::initializeGL() {
     qDebug() << ":: Initializing OpenGL";
-
     initializeOpenGLFunctions();
     qDebug() << ":: Finished initalising functions";
     debugLogger = new QOpenGLDebugLogger();
